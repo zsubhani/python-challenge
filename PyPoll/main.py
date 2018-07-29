@@ -78,7 +78,7 @@ def get_winner(d):
 election_winner = get_winner(votes_dict)
 
 
-# print Election Results Summary to screen
+# print Election Results Summary to screen/terminal
 print("Election Results")
 print("-------------------------")
 # print Total Votes and use total_votes variable which was stored earlier in the script
@@ -91,7 +91,30 @@ print("-------------------------")
 print("Winner: " + election_winner)
 print("-------------------------")
 
-# Next working on exporting Election Results Summary to txt file
+# create function called text_vote_percent_and_count that will pass in the votes dictionary and total number of votes
+# output will be printing of string concatenation showing each candidate's name, corresponding vote percentage, and corresponding number of votes 
+# only difference here is that the print will be output to a text file instead of to the screen/terminal
+def text_vote_percent_and_count(d, tot_v):
+	# loop through all key and values in votes dictionary
+    for key, value in d.items():
+		# vote percent will be (number of votes value in votes dictionary / total number of votes) * 100 as a float
+        vote_percent = ((value/tot_v)* 100)
+        # vote_percent_string will be a string formatted of float variable vote_percent to 3 decimal places
+        vote_percent_string = format(vote_percent, '.3f')
+        #print candidate's name followed by vote percentage and then their total number of votes
+        print(key + ": " + vote_percent_string + "% (" + str(value) + ")", file=text_file)
+
+# export txt file with Election Results
+with open("Election_Results.txt", "w") as text_file:
+	print("Election Results", file=text_file)
+	print("-------------------------", file=text_file)
+	print("Total Votes: " + str(total_votes), file=text_file)
+	print("-------------------------", file=text_file)
+	# call text_vote_percent_and_count founction to output each candidate's name, vote percentage and their total number of votes to text_file
+	text_vote_percent_and_count(votes_dict, total_votes)
+	print("-------------------------", file=text_file)
+	print("Winner: " + election_winner, file=text_file)
+	print("-------------------------", file=text_file)
 
 # End of main.py script
 
